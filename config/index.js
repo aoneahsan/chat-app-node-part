@@ -1,17 +1,21 @@
+const DB = "chat";
+const DB_USER = "ahsan";
+const DB_PASS = "xshuZ8COLgL09x3n";
+
 module.exports = {
   // Server Related Config
-  SERVER_PORT: 3000,
+  SERVER_PORT: 3020,
 
   // MongoDB Related Config
-  MONGODB_URI: `mongodb+srv://${this.DB_DETAILS.DB_USER}:${this.DB_DETAILS.DB_PASS}@ivylab.x3o5y.mongodb.net/${this.DB_DETAILS.DB}?retryWrites=true&w=majority`,
+  MONGODB_URI: `mongodb+srv://${DB_USER}:${DB_PASS}@ivylab.x3o5y.mongodb.net/${DB}?retryWrites=true&w=majority`,
   DB_DETAILS: {
-    DB: "chat",
-    DB_USER: "ahsan",
-    DB_PASS: "xshuZ8COLgL09x3n",
+    DB: DB,
+    DB_USER: DB_USER,
+    DB_PASS: DB_PASS,
   },
 
   // GraphQL Realated Config
-  GRAPHQL_URL: "/grapql",
+  GRAPHQL_URL: "/graphql",
 
   // JWT Related Config
   JSON_WEB_TOKEN_SECRET:

@@ -1,7 +1,3 @@
-// CONSTANTS
-const MONGODB_URI = "";
-
-// **********************************************************************************
 // Core Imports
 // NMP Packages Imports
 const express = require("express");
@@ -11,6 +7,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const multer = require("multer");
 const graphqlHTTP = require("express-graphql").graphqlHTTP;
+const cors = require("cors");
 
 // **********************************************************************************
 // Custom File Imports
@@ -32,6 +29,7 @@ const messageRoutes = require("./routes/message-routes");
 
 // **********************************************************************************
 // Middleware Imports
+const roleMiddleware = require("./middlewares/role-middleware");
 const authMiddleware = require("./middlewares/auth-middleware");
 
 // **********************************************************************************
@@ -45,6 +43,9 @@ const expressApp = express();
 
 // **********************************************************************************
 // Configuring Packages
+// CORS middleware
+expressApp.use(cors());
+
 // bodyParser
 expressApp.use(bodyParser.urlencoded({ extended: false }));
 
@@ -61,6 +62,12 @@ const multerFileStorageConfig = multer.diskStorage({
 
 // **********************************************************************************
 // Adding Middlwares
+
+// test middleware to test if app working fine
+// expressApp.use("/test", (req, res, next) => {
+//   return res.send("<h1>working</h1>");
+// });
+
 // body-parser middleware to add this package functionality
 expressApp.use(bodyParser.json());
 
@@ -90,11 +97,14 @@ expressApp.use((req, res, next) => {
 
 // bypass "Options" http request, to let flow continue to graphql middleware
 expressApp.use((req, res, next) => {
-  if (req.method === "OPTIONS") {
-    return res.statusCode(200);
+  if (req.method == "OPTIONS") {
+    return res.sendStatus(200);
   }
   return next();
 });
+
+// Default Role Middleware
+expressApp.use(roleMiddleware);
 
 // auth middlware
 expressApp.use(authMiddleware);
@@ -159,7 +169,7 @@ expressApp.use(
 
 // redirecting a GET request with URL "/", on this app to "/graphql" (this will allow user to use GraphQL GUI to play with queries and mutations)
 expressApp.use((req, res, next) => {
-  if (req.url == "/" && req.method == "GET") {
+  if (req.url == "/") {
     return res.redirect(CONFIG.GRAPHQL_URL);
   }
 });
@@ -186,11 +196,14 @@ expressApp.use((err, req, res, next) => {
 // **********************************************************************************
 // Connecting to MongoDB and Starting Node Server
 mongoose
-  .connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(CONFIG.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then((res) => {
-    console.log(`app.js === mongoose.connect == ${res}`);
+    console.log(`app.js === mongoose.connect == success = ${res}`);
     expressApp.listen(CONFIG.SERVER_PORT);
   })
   .catch((err) => {
-    console.log(`app.js === mongoose.connect == ${err}`);
+    console.log(`app.js === mongoose.connect == error = ${err}`);
   });
