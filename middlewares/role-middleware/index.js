@@ -5,36 +5,44 @@ const Role = require("./../../models/role");
 const CONFIG = require("./../../config");
 
 module.exports = async (req, res, next) => {
-  console.log(`role-middleware/index.js === Role.find ==`);
+  const adminRole = CONFIG.DEFAULT_ROLES.admin;
+  const tutorRole = CONFIG.DEFAULT_ROLES.tutor;
+  const studentRole = CONFIG.DEFAULT_ROLES.student;
+
   const defaultRoles = await Role.find({
-    title: ["admin", "tutor", "student"],
+    title: [adminRole.title, tutorRole.title, studentRole.title],
   });
-  console.log(defaultRoles);
-  const adminRoleIndex = defaultRoles.findIndex((el) => el.title == "admin");
-  const tutorRoleIndex = defaultRoles.findIndex((el) => el.title == "tutor");
+  // console.log("role-middleware/index.js === mainfunction == ", {defaultRoles});
+  const adminRoleIndex = defaultRoles.findIndex(
+    (el) => el.title == adminRole.title
+  );
+  const tutorRoleIndex = defaultRoles.findIndex(
+    (el) => el.title == tutorRole.title
+  );
   const studentRoleIndex = defaultRoles.findIndex(
-    (el) => el.title == "student"
+    (el) => el.title == studentRole.title
   );
   // creating admin role if does not exists
   if (adminRoleIndex < 0) {
     await Role.create({
-      title: "admin",
-      description: "admin role of app",
+      title: adminRole.title,
+      description: adminRole.description,
     });
   }
   // creating tutor role if does not exists
   if (tutorRoleIndex < 0) {
     await Role.create({
-      title: "tutor",
-      description: "tutor role of app",
+      title: tutorRole.title,
+      description: tutorRole.description,
     });
   }
   // creating student role if does not exists
   if (studentRoleIndex < 0) {
     await Role.create({
-      title: "student",
-      description: "student role of app",
+      title: studentRole.title,
+      description: studentRole.description,
     });
   }
+
   return next();
 };

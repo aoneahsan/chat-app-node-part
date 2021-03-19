@@ -23,4 +23,64 @@ module.exports = {
 
   // Request Related Config
   HEADER_AUTH_KEY: "X-Authorization",
+
+  // bcryptjs hash default lenght
+  BCRYPTJS_HASH_LENGHT: 12,
+
+  // Default Models Data Config
+  // Default Roles
+  DEFAULT_ROLES: {
+    admin: {
+      title: "admin",
+      description: "admin user",
+    },
+    tutor: {
+      title: "tutor",
+      description: "tutor user",
+    },
+    student: {
+      title: "student",
+      description: "student user",
+    },
+  },
+
+  // Default Users
+  DEFAULT_USERS: {
+    admin: {
+      full_name: "admin user",
+      username: "admin",
+      email: "admin@demo.com",
+      tag_line: "admin user of chat app",
+      password: "123456",
+      status: "active",
+      last_seen: new Date(),
+      // role: //this will be set automatically while creating default user
+      contacts: [],
+      groups: [],
+    },
+    tutor: {
+      full_name: "tutor user",
+      username: "tutor",
+      email: "tutor@demo.com",
+      tag_line: "tutor user of chat app",
+      password: "123456",
+      status: "inactive",
+      last_seen: new Date(),
+      // role: //this will be set automatically while creating default user
+      contacts: [],
+      groups: [],
+    },
+    student: {
+      full_name: "student user",
+      username: "student",
+      email: "student@demo.com",
+      tag_line: "student user of chat app",
+      password: "123456",
+      status: "away",
+      last_seen: new Date(),
+      // role: //this will be set automatically while creating default user
+      contacts: [],
+      groups: [],
+    },
+  },
 };

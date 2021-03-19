@@ -30,6 +30,7 @@ const messageRoutes = require("./routes/message-routes");
 // **********************************************************************************
 // Middleware Imports
 const roleMiddleware = require("./middlewares/role-middleware");
+const userMiddleware = require("./middlewares/user-middleware");
 const authMiddleware = require("./middlewares/auth-middleware");
 
 // **********************************************************************************
@@ -103,8 +104,11 @@ expressApp.use((req, res, next) => {
   return next();
 });
 
-// Default Role Middleware
+// Checking/Creating Default Roles | Middleware
 expressApp.use(roleMiddleware);
+
+// Checking/Creating Default Users | Middleware
+expressApp.use(userMiddleware);
 
 // auth middlware
 expressApp.use(authMiddleware);
