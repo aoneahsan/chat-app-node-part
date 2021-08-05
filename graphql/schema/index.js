@@ -2,7 +2,6 @@
 const { buildSchema } = require("graphql");
 
 // Custom Imports
-const authSchema = require("./auth-schema");
 
 module.exports = buildSchema(`
 input loginInput {
@@ -28,8 +27,6 @@ type RoleModal {
     updatedAt: String
 }
 
-union StringOrRoleModal = String | RoleModal
-
 type UserModal {
     _id: ID
     full_name: String
@@ -39,11 +36,11 @@ type UserModal {
     tag_line: String
     status: String
     last_seen: String
-    role: StringOrRoleModal
+    role: RoleModal
     contacts: [UserModal]
-    full_name: String
     createdAt: String
     updatedAt: String
+    token: String
 }
 
 type MessageModal {
@@ -68,14 +65,14 @@ type GroupModal {
     updatedAt: String
 }
 
-type loginResponse {
-
-}
-
 type RootQuery {
+    hello: String
+    getProfileData: UserModal
 }
 
 type RootMutation {
+    login(userInput: loginInput): UserModal!
+    register(userInput: registerInput): UserModal!
 }
 
 schema {

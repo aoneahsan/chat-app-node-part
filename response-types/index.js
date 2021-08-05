@@ -45,6 +45,12 @@ module.exports = {
   GEHM_DEFAULT_RESPONSE: {
     message: "GEHM_DEFAULT_RESPONSE",
     statusCode: 500,
-    errors: []
+    errors: [],
+  },
+
+  USER_EXISTS: {
+    message: "USER_EXISTS",
+    statusCode: 400,
+    errors: [],
   },
 };

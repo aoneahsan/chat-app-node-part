@@ -27,7 +27,7 @@ const userSchema = new Schema(
     tag_line: String,
     status: {
       type: String, //active | inactive | away
-      required: true,
+      required: false,
     },
     last_seen: {
       type: Date,

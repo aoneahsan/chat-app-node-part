@@ -18,8 +18,9 @@ module.exports = {
   GRAPHQL_URL: "/graphql",
 
   // JWT Related Config
-  JSON_WEB_TOKEN_SECRET:
-    "JSON_WEB_TOKEN_SECRET, this should be uniqe and long for security reasons.",
+  JWT_SECRET:
+    "JWT_SECRET, this should be uniqe and long for security reasons.",
+  JWT_EXPIRE_TIME: "3h",
 
   // Request Related Config
   HEADER_AUTH_KEY: "X-Authorization",

@@ -205,9 +205,10 @@ mongoose
     useUnifiedTopology: true,
   })
   .then((res) => {
-    console.log(`app.js === mongoose.connect == success = ${res}`);
+    // console.log(`app.js === mongoose.connect == success = `, {res});
+    console.log(`app.js === mongoose.connect == success`);
     expressApp.listen(CONFIG.SERVER_PORT);
   })
   .catch((err) => {
-    console.log(`app.js === mongoose.connect == error = ${err}`);
+    console.log(`app.js === mongoose.connect == error = `, { err });
   });
